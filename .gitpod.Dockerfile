@@ -4,6 +4,7 @@ USER root:root
 
 RUN apt-get update && apt-get install -y \
     git \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
 # Install dependencies
