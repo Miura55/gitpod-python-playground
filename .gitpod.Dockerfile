@@ -2,9 +2,10 @@ FROM python:3.12-slim
 
 USER root:root
 
-RUN apt-get update && apt-get install -y \
+RUN apt update && apt install -y \
     git \
     curl \
+    jq \
     && rm -rf /var/lib/apt/lists/*
 
 # Install dependencies
