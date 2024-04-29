@@ -6,6 +6,7 @@ RUN apt update && apt install -y \
     git \
     curl \
     jq \
+    sqlite3 \
     && rm -rf /var/lib/apt/lists/*
 
 # Install dependencies
