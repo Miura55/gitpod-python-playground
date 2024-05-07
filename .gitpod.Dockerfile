@@ -4,11 +4,6 @@ SHELL ["/bin/bash", "-c"]
 
 RUN sudo apt-get update \
     && sudo apt-get upgrade \
-    && sudo apt-get install -y \
-        curl \
-        python-openssl \
-        git \
-        sqlite3 \
     && sudo apt-get clean \
     && sudo rm -rf /var/cache/apt/* /var/lib/apt/lists/* /tmp/*
 
