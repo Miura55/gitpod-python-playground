@@ -1,25 +1,28 @@
-FROM python:3.12-slim
+FROM gitpod/workspace-full:latest
 
-USER root:root
+SHELL ["/bin/bash", "-c"]
 
-RUN apt update && apt install -y \
-    git \
-    curl \
-    jq \
-    sqlite3 \
-    && rm -rf /var/lib/apt/lists/*
+RUN sudo apt-get update \
+    && sudo apt-get update \
+    && sudo apt-get clean \
+    && sudo rm -rf /var/cache/apt/* /var/lib/apt/lists/* /tmp/*
 
-# Install dependencies
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# That Gitpod install pyenv for me? no, thanks
+WORKDIR /home/gitpod/
+RUN rm .pyenv -Rf
+RUN rm .gp_pyenv.d -Rf
+RUN curl https://pyenv.run | bash
 
-# Set up the workspace
-RUN mkdir -p /workspace
-ARG USERNAME=gitpod
-ARG USER_UID=33333
-ARG USER_GID=$USER_UID
-RUN groupadd --gid $USER_GID $USERNAME \
-    && useradd -s /bin/bash --uid $USER_UID --gid $USER_GID -m $USERNAME
-WORKDIR /workspace
-RUN chown -R gitpod:gitpod /workspace
-USER gitpod:gitpod
+
+RUN pyenv update && pyenv install 3.10.7 && pyenv global 3.10.7
+RUN pip install pipenv
+
+# remove PIP_USER environment
+USER gitpod
+
+RUN pip3 install pytest==6.2.5 mock pytest-testdox toml
+RUN npm i @learnpack/learnpack@2.1.39 -g && learnpack plugins:install @learnpack/python@1.0.3
+
+# Install Python Dependencies
+COPY ./requirements.txt /workspace/requirements.txt
+RUN pip install -r /workspace/requirements.txt
