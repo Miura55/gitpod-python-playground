@@ -3,5 +3,6 @@ image:
 
 vscode:
   extensions:
-    - ms-azuretools.vscode-docker
     - ms-python.python
+    - alexcvzz.vscode-sqlite
+    - qwtel.sqlite-viewer
