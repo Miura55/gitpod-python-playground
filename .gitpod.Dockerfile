@@ -14,7 +14,7 @@ RUN rm .gp_pyenv.d -Rf
 RUN curl https://pyenv.run | bash
 
 
-RUN pyenv update && pyenv install 3.10.7 && pyenv global 3.10.7
+RUN pyenv update && pyenv install 3.12.3 && pyenv global 3.12.3
 RUN pip install pipenv
 
 # remove PIP_USER environment
